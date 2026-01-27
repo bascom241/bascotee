@@ -1,11 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import { ExternalLink, Github, ChevronRight, X, Zap, Code, Star, ArrowRight, Maximize2, Play, Pause, Smartphone, Briefcase, FolderGit2 } from 'lucide-react';
-import p1 from "../assets/01.jpg";
-import p2 from "../assets/02.jpg";
-import p3 from "../assets/03.png";
-import p4 from "../assets/04.png";
+import p1 from "../assets/projects/guided.png";
+import p2 from "../assets/projects/connect.png";
+import p3 from "../assets/projects/Screenshot 2025-08-09 182308.png";
 
+import ShopIt from "../assets/projects/portfolio2.png"
+import ShopItAdmin from "../assets/projects/admin.png"
+import doctor from "../assets/projects/portfolio3.png"
+import span from "../assets/projects/portfolio4.png"
+import achi from "../assets/projects/archi.png"
+import edulink from "../assets/projects/edulink.png"
+import pharmalink from "../assets/projects/pharmalink.jpg"
+import chow from "../assets/projects/chow.jpg"
 // Define TypeScript interfaces
 interface ProjectStats {
   [key: string]: string;
@@ -66,46 +73,55 @@ const projects: Project[] = [
     title: "GuidEd - Learning Management System",
     description: "A comprehensive online education platform connecting students with instructors through interactive courses.",
     image: p1,
-    techStack: ["React", "Node.js", "MongoDB", "Express", "JWT Auth", "React Router"],
+    techStack: ["React", "Node.js", "MongoDB", "Express", "JWT Auth", "Typescript"],
     link: "https://guided-edu.onrender.com/",
     gitHub: "https://github.com/bascom241/guided",
     challenges: [
-      "Implementing real-time course progress tracking",
+      "uploading videos to cloudinary",
       "Handling concurrent user enrollments",
-      "Secure payment integration"
+      "Secure payment integration "
     ],
     solutions: [
-      "Developed a custom progress tracking algorithm",
+      "Regulating Data streaming by streaming the videos with chunk using buffer",
       "Optimized database queries with indexing",
-      "Integrated Stripe with webhook verification"
+      "Integrated paystack with webhook verification"
     ],
-    impact: "Increased student engagement by 40% and reduced instructor workload by 25%",
+    impact: "Students having access to quality course with cheaper rates",
     featured: true,
-    stats: { users: "5K+", rating: "4.8", completion: "92%" },
+    stats: { users: "<1K", rating: "4.8", },
     category: 'side'
   },
-  {
+
+  
+    {
     id: 2,
-    title: "Unilorin Connect",
-    description: "A campus connection platform developed for a client to enable students to post resources, access a marketplace, and chat in real-time.",
-    image: p2,
-    link: "https://uilconnectapp.onrender.com/",
-    gitHub: "https://github.com/bascom241/unilorinconnect",
-    techStack: ["Next.js", "MongoDB", "Express", "Tailwind CSS", "Framer Motion"],
+    title: "EduLink - Connecting Students to Teachers",
+    description: `EduLink is an educational platform that connects students with skilled teachers and digital classrooms. It helps students discover their talents, find the right educators to guide them, and access learning resources online. Teachers can manage classes, track student progress, and communicate directly with learners.`,
+    image: edulink,
+    techStack: ["Java", "Spring Boot", "PostgreSQL", "React", "Tailwind CSS", "WebSockets", "Paystack API", "Google Gmail API"],
+    link: "https://edulink-kbad.onrender.com/",
+    gitHub: "https://github.com/bascom241/EdulinkServer", // If you want to share backend repo or frontend
     challenges: [
-      "Dynamic content updates by non-technical admins",
-      "Event registration system",
-      "Member engagement tracking"
+      "Handling payments for each classroom and tracking subscriptions",
+      "Real-time messaging between tutors and students using Gmail integration",
+      "Query optimization for fast performance across multiple classrooms",
+      "Real-time notifications using WebSockets",
+      "Ensuring unique accounts and subaccounts for each tutor",
+      "Slug generation for unique identifiers across classrooms and users"
     ],
     solutions: [
-      "Built CMS-like interface",
-      "Created automated confirmation flows",
-      "Implemented analytics dashboard"
+      "Implemented Paystack API to manage payments and subaccounts for tutors",
+      "Built WebSocket-based real-time notifications and chat system",
+      "Optimized database queries for performance and scalability",
+      "Integrated Gmail API for seamless tutor-student communication",
+      "Implemented slug-based unique identifiers for classrooms and user accounts"
     ],
-    impact: "Increased member participation by 75%",
-    stats: { users: "2K+", active: "85%", events: "50+" },
-    category: 'side'
+    impact: "Currently active with 34 signed-in students and 20+ classrooms, enabling smooth digital learning and reliable tutor-student interaction.",
+    featured: true,
+    stats: { students: "34+", classrooms: "20+", activeSessions: "100% real-time" },
+    category: "professional"
   },
+ 
   {
     id: 3,
     title: "Medilorn Lab Management System",
@@ -125,73 +141,71 @@ const projects: Project[] = [
       "Added premium subscription features"
     ],
     impact: "Enabled labs to handle 2x more patients daily",
-    stats: { patients: "1K+", accuracy: "99.8%", efficiency: "2x" },
+    stats: { patients: "<1K+", accuracy: "not measured", efficiency: "not measured" },
     category: 'side'
   },
   {
     id: 4,
     title: "ShopIt - E-commerce Platform",
     description: "Full-featured online store with product management, cart system, and secure checkout.",
-    image: p4,
+    image: ShopIt,
     link: "https://frontend0.onrender.com",
     gitHub: "https://github.com/bascom241/Eccormerce1",
     techStack: ["Next.js", "Stripe", "MongoDB", "Express", "Redux", "Tailwind CSS"],
     challenges: [
       "Managing complex product variants",
       "Cart persistence across sessions",
-      "Fraud prevention"
+      
     ],
     solutions: [
       "Created flexible product variant schema",
       "Implemented localStorage + database sync",
-      "Added address verification system"
+  
     ],
-    impact: "Processed 500+ orders with 0 payment failures",
-    stats: { orders: "500+", revenue: "$50K+", uptime: "99.9%" },
+    impact: "not measured ",
+    stats: { orders: "2+", revenue: "#10000", uptime: "50%" },
     category: 'side'
   },
   {
     id: 5,
     title: "ShopIt Admin Dashboard",
     description: "Centralized management system for e-commerce operations and analytics.",
-    image: p4,
+    image: ShopItAdmin,
     link: "https://myadminpanel.onrender.com",
     gitHub: "https://github.com/bascom241/Eccormerce1",
     techStack: ["Next.js", "Chart.js", "MongoDB Aggregation", "Express"],
     challenges: [
       "Real-time sales analytics",
-      "Bulk product operations",
       "Role-based access control"
     ],
     solutions: [
       "Built custom data aggregation pipelines",
-      "Implemented CSV import/export",
       "Developed granular permission system"
     ],
     impact: "Reduced administrative tasks by 60%",
-    stats: { efficiency: "60%", users: "50+", charts: "15+" },
+    stats: { efficiency: "10%", users: "5+", charts: "15+" },
     category: 'side'
   },
   {
     id: 6,
     title: "Doctor Appointment System",
     description: "Healthcare scheduling platform connecting patients with medical professionals.",
-    image: p3,
+    image: doctor,
     link: "https://doctor-appointment-3-9yn3.onrender.com/",
     gitHub: "https://github.com/bascom241/Doctor-Appointment",
     techStack: ["MERN Stack", "Redux", "Cloudinary", "JWT Auth"],
     challenges: [
       "Calendar scheduling conflicts",
       "HIPAA-compliant data handling",
-      "Notification system"
+     
     ],
     solutions: [
       "Implemented time slot validation",
       "Encrypted sensitive health data",
-      "Integrated Twilio for SMS alerts"
+      
     ],
-    impact: "Served 200+ patients with 95% satisfaction",
-    stats: { patients: "200+", satisfaction: "95%", appointments: "1K+" },
+    impact: "not tracked",
+    stats: { patients: "3+", satisfaction: "55%", appointments: "30" },
     category: 'side'
   },
 
@@ -200,77 +214,49 @@ const projects: Project[] = [
     id: 7,
     title: "SPAN Connect",
     description: "Official platform for SPAN Association showcasing events and member activities.",
-    image: p2,
+    image: span,
     link: "https://spanunilorinchapter.vercel.app/",
-    techStack: ["Next.js", "MongoDB", "Express", "Tailwind CSS", "Framer Motion"],
+    techStack: ["HTML","CSS", "JAVASCRIPT"],
     challenges: [
-      "Dynamic content updates by non-technical admins",
-      "Event registration system",
-      "Member engagement tracking"
+      "Responsiveness ",
+      "Deployments"
     ],
     solutions: [
-      "Built CMS-like interface",
-      "Created automated confirmation flows",
-      "Implemented analytics dashboard"
+      "Implemented media query for responsiveness",
+      "Vercel"
     ],
     impact: "Increased member participation by 75%",
-    stats: { members: "500+", events: "30+", growth: "75%" },
+    stats: { members: "10", events: "not tracked", growth: "not tracked" },
     category: 'professional'
   },
   {
     id: 8,
     title: "Architectural Firm Website",
     description: "Modern showcase for architectural services with portfolio gallery and client portal.",
-    image: p1,
+    image: achi,
     link: "https://client-architecture.vercel.app/",
-    techStack: ["Next.js", "Three.js", "Framer Motion", "Tailwind CSS"],
+    techStack: ["Next.js",  "Framer Motion", "Tailwind CSS"],
     challenges: [
-      "3D model rendering performance",
-      "Client proofing system",
+  
       "Mobile responsiveness"
     ],
     solutions: [
-      "Optimized 3D assets with compression",
-      "Built annotation tool for feedback",
+     
       "Implemented adaptive design system"
     ],
-    impact: "Generated 30+ qualified leads in first month",
-    stats: { leads: "30+", views: "10K+", conversion: "15%" },
+    impact: "not tracked ",
+    stats: { leads: "not tracked ", views: "not tracked ", conversion: "not tracked" },
     category: 'professional'
   },
 
   // Mobile Apps (Category: 'mobile')
+
   {
     id: 9,
-    title: "ChowNaija - Food Review App",
-    description: "A React Native mobile application for discovering and reviewing local Nigerian restaurants and dishes.",
-    image: p1, // You can replace with mobile app image
-    techStack: ["React Native", "TypeScript", "Firebase", "Redux", "Expo"],
-    link: "",
-    gitHub: "https://github.com/bascom241/ChowNaijaUI",
-    challenges: [
-      "Real-time restaurant reviews and ratings",
-      "Location-based restaurant discovery",
-      "Image upload and optimization for mobile",
-      "Offline functionality for menu browsing"
-    ],
-    solutions: [
-      "Implemented Firebase real-time database for reviews",
-      "Used React Native Maps with geolocation API",
-      "Integrated Cloudinary for image optimization",
-      "Added AsyncStorage for offline data persistence"
-    ],
-    impact: "Provides food enthusiasts with authentic Nigerian restaurant reviews and ratings",
-    featured: true,
-    stats: { reviews: "500+", restaurants: "200+", users: "1K+" },
-    category: 'mobile'
-  },
-  {
-    id: 10,
     title: "PharmaLink - Medication Reminder",
     description: "Smart medication reminder & pharmacy locator app to help users manage medications and find nearby pharmacies.",
-    image: p3, // You can replace with mobile app image
-    techStack: ["React Native", "TypeScript", "Node.js", "Google Maps API", "Push Notifications"],
+    image: pharmalink, // You can replace with mobile app image
+    techStack: ["React Native", "TypeScript", "Node.js", "Google Maps API", "Push Notifications","Open Ai"],
     link: "",
     gitHub: "https://github.com/bascom241/phamalink",
     challenges: [
@@ -287,9 +273,58 @@ const projects: Project[] = [
     ],
     impact: "Helps users maintain consistent medication habits with convenient pharmacy access",
     featured: true,
-    stats: { reminders: "1K+", pharmacies: "5K+", accuracy: "99%" },
+    stats: { reminders: "200+", pharmacies: "5+", accuracy: "99%" },
     category: 'mobile'
   },
+  {
+    id: 10,
+    title: "ChowNaija - Food Review App",
+    description: "A React Native mobile application for discovering and reviewing local Nigerian restaurants and dishes.",
+    image: chow, // You can replace with mobile app image
+    techStack: ["React Native", "TypeScript", "springboot", "postgress", "Expo"],
+    link: "",
+    gitHub: "https://github.com/bascom241/ChowNaijaUI",
+    challenges: [
+      "Real-time restaurant reviews and ratings",
+      "Location-based restaurant discovery",
+      "Image upload and optimization for mobile",
+    
+    ],
+    solutions: [
+      "normal http request/response used ",
+      "Used React Native Maps with geolocation API",
+      "Integrated Cloudinary for image optimization",
+     
+    ],
+    impact: "Provides food enthusiasts with authentic Nigerian restaurant reviews and ratings",
+    featured: true,
+    stats: { reviews: "not tracked ", restaurants: "10+", users: "3" },
+    category: 'mobile'
+  },
+  
+   {
+    id: 11,
+    title: "Unilorin Connect",
+    description: "A campus connection platform developed for a client to enable students to post resources, access a marketplace, and chat in real-time.",
+    image: p2,
+    link: "https://uilconnectapp.onrender.com/",
+    gitHub: "https://github.com/bascom241/unilorinconnect",
+    techStack: ["Next.js", "MongoDB", "Express", "Tailwind CSS", "Framer Motion"],
+    challenges: [
+      "Real time messaging system ",
+      "Event registration system",
+      "ui updates from real time messages "
+    ],
+    solutions: [
+      "Integrated socket.io in express for real time messaging",
+      "Created automated confirmation flows",
+      "Rendering the data in the ui before data gets interaction with the database "
+    ],
+    impact: "Easy flow of communication between students ",
+    stats: { users: "<1K+", active: "20%", events: "10+" },
+    category: 'professional'
+  },
+
 ];
 
 // Project Card Component

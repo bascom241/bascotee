@@ -8,31 +8,39 @@ export interface SliderItem {
   image: string;
   title: string;
   reason: string;
+  link: string 
 }
-
 export const sliderData: SliderItem[] = [
   {
     id: 1,
     image: Image1,
-    title: "Creative Design",
-    reason: "This image represents my passion for clean and modern UI design.",
+    title: "Award",
+    reason:
+      "This award recognizes my contribution to developing impactful tech solutions for my department, highlighting innovation, problem-solving, and technical excellence.",
+    link:"https://medium.com/@abdulbasitabdulwahab3/the-award-that-changed-how-i-see-my-skills-6d051d37afe6"
   },
   {
     id: 2,
     image: Image2,
-    title: "Development",
-    reason: "It shows my journey as a software engineer building real-world apps.",
+    title: "Startup",
+    reason:
+      "This reflects my journey as a software engineer building real-world applications, turning ideas into functional products and learning how technology solves practical problems.",
+      link:"https://www.linkedin.com/posts/abdulbasit-abdulwahab-144507258_is-edtech-in-nigeria-dying-absolutely-activity-7369650831559778307-qOcS?utm_source=share&utm_medium=member_desktop&rcm=ACoAAD9vbAQBP8bcOXOLUFsji1MbTs_ctQi4unU"
   },
   {
     id: 3,
     image: Image3,
-    title: "Innovation",
-    reason: "A reflection of my drive to solve problems creatively.",
+    title: "Building Process",
+    reason:
+      "A look into my development workflow — from planning and design to coding and deployment — showing how I transform concepts into scalable, user-focused solutions.",
+      link:"https://medium.com/@abdulbasitabdulwahab3/my-journey-from-learning-code-to-building-real-apps-b6249e041410"
   },
   {
     id: 4,
     image: Image4,
-    title: "Growth",
-    reason: "This symbolizes learning, growth, and continuous improvement.",
+    title: "Client Review",
+    reason:
+      "Feedback from clients that showcases my professionalism, communication, and ability to deliver reliable solutions that meet both technical and business needs.",
+      link:"https://www.linkedin.com/posts/abdulbasit-abdulwahab-144507258_is-edtech-in-nigeria-dying-absolutely-activity-7369650831559778307-qOcS?utm_source=share&utm_medium=member_desktop&rcm=ACoAAD9vbAQBP8bcOXOLUFsji1MbTs_ctQi4unU"
   },
 ];

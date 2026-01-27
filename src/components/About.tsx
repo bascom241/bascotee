@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
-import avatar from "../assets/avatar.jpg";
+import avatar from "../assets/about.jpg";
 
 const container: Variants = {
   hidden: { opacity: 0 },
@@ -110,7 +110,7 @@ const About = () => {
     <section 
       ref={sectionRef}
       id="about-section"
-      className="min-h-screen flex items-center justify-center px-3 sm:px-4 md:px-6 py-12 sm:py-16 md:py-20 lg:py-24 relative bg-white"
+      className="min-h-screen flex items-center justify-center px-3 sm:px-4 md:px-6 py-12 sm:py-16 md:py-20 lg:py-12 relative bg-white"
     >
       {/* Progress Indicator - Hidden on very small mobile */}
       <motion.div 
@@ -162,7 +162,7 @@ const About = () => {
             <motion.img
               src={avatar}
               alt="Avatar"
-              className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full border-3 sm:border-4 border-black object-cover shadow-lg"
+              className="w-24 h-24 sm:w-28 sm:h-28 md:w-60 md:h-60 rounded-full border-3 sm:border-4 border-black object-cover shadow-lg"
               whileHover={{ rotate: isMobile ? 0 : 5 }}
               transition={{ type: "spring", stiffness: 200 }}
             />

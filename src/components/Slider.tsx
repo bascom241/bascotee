@@ -5,6 +5,7 @@ import { sliderData } from "../utils/SliderData";
 import type { JSX } from "react";
 import { X, ChevronLeft, ChevronRight, Maximize2, Heart } from "lucide-react";
 import type { Variants } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const Slider = (): JSX.Element => {
   const [active, setActive] = useState<SliderItem | null>(null);
@@ -411,13 +412,21 @@ const Slider = (): JSX.Element => {
                   transition={{ delay: 0.5 }}
                   className="flex flex-col sm:flex-row gap-3 mt-6 sm:mt-8"
                 >
+               
                   <motion.button
                     whileHover={{ scale: isMobile ? 1 : 1.05, y: isMobile ? 0 : -2 }}
                     whileTap={{ scale: 0.95 }}
                     className="flex-1 py-3 bg-gray-900 text-white rounded-lg sm:rounded-xl font-medium shadow-lg hover:shadow-xl text-sm sm:text-base"
                   >
-                    View Full Story
+
+                    
+                   
+                      <Link to={active.link}>
+                      View Full Story
+                      </Link>
+                    
                   </motion.button>
+                  
                   <motion.button
                     whileHover={{ scale: isMobile ? 1 : 1.05, y: isMobile ? 0 : -2 }}
                     whileTap={{ scale: 0.95 }}

@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
+import emailjs from '@emailjs/browser';
 import { 
   Send, 
   Mail, 
@@ -51,10 +52,8 @@ const Contact = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
-  // Particle effect for background
   const [particles, setParticles] = useState<Array<{id: number, x: number, y: number, size: number}>>([]);
 
-  // Initialize particles
   useEffect(() => {
     const particleCount = 30;
     const newParticles = Array.from({ length: particleCount }, (_, i) => ({
@@ -66,7 +65,6 @@ const Contact = () => {
     setParticles(newParticles);
   }, []);
 
-  // Calculate typing speed
   useEffect(() => {
     let timer: any;
     if (activeField && formData[activeField as keyof FormData]) {
@@ -79,100 +77,57 @@ const Contact = () => {
     return () => clearTimeout(timer);
   }, [activeField, formData]);
 
-  // Handle form input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
     
-    // Update character count for message
-    if (name === 'message') {
-      setCharCount(value.length);
-    }
-
-    // Clear error for this field
-    if (errors[name as keyof FormErrors]) {
-      setErrors(prev => ({ ...prev, [name]: undefined }));
-    }
+    if (name === 'message') setCharCount(value.length);
+    if (errors[name as keyof FormErrors]) setErrors(prev => ({ ...prev, [name]: undefined }));
   };
 
-  // Handle file drop
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(false);
-    
     const file = e.dataTransfer.files[0];
-    if (file && file.size <= 5 * 1024 * 1024) { // 5MB limit
-      setFormData(prev => ({ ...prev, file }));
-    }
+    if (file && file.size <= 5 * 1024 * 1024) setFormData(prev => ({ ...prev, file }));
   };
 
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(true);
-  };
+  const handleDragOver = (e: React.DragEvent) => { e.preventDefault(); setIsDragging(true); };
+  const handleDragLeave = () => setIsDragging(false);
 
-  const handleDragLeave = () => {
-    setIsDragging(false);
-  };
-
-  // Handle file selection
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file && file.size <= 5 * 1024 * 1024) {
-      setFormData(prev => ({ ...prev, file }));
-    }
+    if (file && file.size <= 5 * 1024 * 1024) setFormData(prev => ({ ...prev, file }));
   };
 
-  // Remove attached file
   const removeFile = () => {
     setFormData(prev => ({ ...prev, file: undefined }));
-    if (fileInputRef.current) {
-      fileInputRef.current.value = '';
-    }
+    if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
-  // Validate form
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
-    
-    if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
-    }
-    
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Invalid email address';
-    }
-    
-    if (!formData.subject.trim()) {
-      newErrors.subject = 'Subject is required';
-    }
-    
-    if (!formData.message.trim()) {
-      newErrors.message = 'Message is required';
-    } else if (formData.message.length > 1000) {
-      newErrors.message = 'Message too long (max 1000 characters)';
-    }
-
+    if (!formData.name.trim()) newErrors.name = 'Name is required';
+    if (!formData.email.trim()) newErrors.email = 'Email is required';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = 'Invalid email address';
+    if (!formData.subject.trim()) newErrors.subject = 'Subject is required';
+    if (!formData.message.trim()) newErrors.message = 'Message is required';
+    else if (formData.message.length > 1000) newErrors.message = 'Message too long (max 1000 characters)';
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  // Handle form submission
+  // --- EMAILJS HANDLE SUBMIT ---
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!validateForm()) {
-      // Shake animation for errors
       const form = formRef.current;
       if (form) {
         form.style.transform = 'translateX(-10px)';
         setTimeout(() => {
           form.style.transform = 'translateX(10px)';
-          setTimeout(() => {
-            form.style.transform = 'translateX(0)';
-          }, 50);
+          setTimeout(() => { form.style.transform = 'translateX(0)'; }, 50);
         }, 50);
       }
       return;
@@ -180,92 +135,45 @@ const Contact = () => {
 
     setIsSubmitting(true);
 
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    try {
+      if (!formRef.current) return;
 
-    setIsSubmitting(false);
-    setIsSuccess(true);
-    
-    // Reset form after success
-    setTimeout(() => {
+      await emailjs.sendForm(
+        'service_8ylrkkr',       // service ID
+        'template_8nrkk94',      // template ID
+        formRef.current,
+        'ZW99MvlPVKFRexJ7a'     // public key
+      );
+
+      setIsSuccess(true);
+
       setFormData({ name: '', email: '', subject: '', message: '' });
       setCharCount(0);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
-      }
-    }, 3000);
+      if (fileInputRef.current) fileInputRef.current.value = '';
 
-    // Auto-hide success message
-    setTimeout(() => {
-      setIsSuccess(false);
-    }, 5000);
+      setTimeout(() => setIsSuccess(false), 5000);
+
+    } catch (error) {
+      console.error('EmailJS Error:', error);
+      alert('Something went wrong. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  // Social links
   const socialLinks = [
-    { icon: Linkedin, label: 'LinkedIn', url: 'https://linkedin.com/in/yourusername', color: 'bg-blue-600' },
-    { icon: Github, label: 'GitHub', url: 'https://github.com/yourusername', color: 'bg-gray-900' },
-    { icon: Twitter, label: 'Twitter', url: 'https://twitter.com/yourusername', color: 'bg-blue-400' },
+    { icon: Linkedin, label: 'LinkedIn', url: 'https://www.linkedin.com/in/abdulbasit-abdulwahab-144507258/', color: 'bg-blue-600' },
+    { icon: Github, label: 'GitHub', url: 'https://github.com/bascom241', color: 'bg-gray-900' },
+    { icon: Twitter, label: 'Twitter', url: 'https://x.com/basscotte_', color: 'bg-blue-400' },
   ];
 
-  // Animation variants
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2
-      }
-    }
-  };
-
-  const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut"
-      }
-    },
-    hover: {
-      scale: 1.02,
-      transition: {
-        duration: 0.2
-      }
-    }
-  };
-
-  const inputVariants: Variants= {
-    focus: {
-      scale: 1.01,
-      boxShadow: "0 0 0 2px rgba(0,0,0,0.1)",
-      transition: { duration: 0.2 }
-    }
-  };
-
-  const successVariants: Variants = {
-    hidden: { scale: 0, opacity: 0 },
-    visible: { 
-      scale: 1, 
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 200,
-        damping: 15
-      }
-    },
-    exit: { 
-      scale: 0, 
-      opacity: 0,
-      transition: { duration: 0.3 }
-    }
-  };
+  const containerVariants: Variants = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 } } };
+  const itemVariants: Variants = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }, hover: { scale: 1.02, transition: { duration: 0.2 } } };
+  const inputVariants: Variants= { focus: { scale: 1.01, boxShadow: "0 0 0 2px rgba(0,0,0,0.1)", transition: { duration: 0.2 } } };
+  const successVariants: Variants = { hidden: { scale: 0, opacity: 0 }, visible: { scale: 1, opacity: 1, transition: { type: "spring", stiffness: 200, damping: 15 } }, exit: { scale: 0, opacity: 0, transition: { duration: 0.3 } } };
 
   return (
-    <section className="min-h-screen bg-linear-to-b from-white to-gray-50 py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+   <section className="min-h-screen bg-linear-to-b from-white to-gray-50 py-20 px-1 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Animated Background Particles */}
       <div className="absolute inset-0 overflow-hidden">
         {particles.map(particle => (
@@ -350,7 +258,7 @@ const Contact = () => {
                       href="mailto:youremail@example.com" 
                       className="text-gray-600 hover:text-black transition-colors"
                     >
-                      youremail@example.com
+                     abdulbasitabdulwahab21@gmail.com
                     </a>
                     <p className="text-sm text-gray-500 mt-1">Typically replies within 24 hours</p>
                   </div>
@@ -372,7 +280,7 @@ const Contact = () => {
                       href="tel:+1234567890" 
                       className="text-gray-600 hover:text-black transition-colors"
                     >
-                      +1 (234) 567-890
+                      +234 7078135314 / 8059139063 (whatsapp)
                     </a>
                     <p className="text-sm text-gray-500 mt-1">Available Mon-Fri, 9AM-6PM</p>
                   </div>

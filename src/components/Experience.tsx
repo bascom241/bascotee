@@ -61,8 +61,9 @@ const experiences: Experience[] = [
     techStack: ["React", "Node.js", "Express", "MongoDB", "TypeScript", "Tailwind"],
     achievements: [
       "Led development of 5+ client projects",
-      "Reduced deployment time by 40%",
-      "Mentored 3 junior developers"
+  
+      "Mentored 3 junior developers",
+      "Started my own startup"
     ],
     current: true
   },
@@ -636,11 +637,11 @@ const Experience = () => {
                   <div className="text-xs text-gray-600">Positions</div>
                 </div>
                 <div className="text-center p-3 bg-white rounded-lg border border-gray-200">
-                  <div className="text-2xl font-bold text-black">4+</div>
+                  <div className="text-2xl font-bold text-black">3+</div>
                   <div className="text-xs text-gray-600">Years Exp</div>
                 </div>
                 <div className="text-center p-3 bg-white rounded-lg border border-gray-200">
-                  <div className="text-2xl font-bold text-black">20+</div>
+                  <div className="text-2xl font-bold text-black">10+</div>
                   <div className="text-xs text-gray-600">Technologies</div>
                 </div>
                 <div className="text-center p-3 bg-white rounded-lg border border-gray-200">

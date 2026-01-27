@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import { 
   Send, 
   Mail, 
@@ -68,7 +68,7 @@ const Contact = () => {
 
   // Calculate typing speed
   useEffect(() => {
-    let timer: NodeJS.Timeout;
+    let timer: any;
     if (activeField && formData[activeField as keyof FormData]) {
       timer = setTimeout(() => {
         setTypingSpeed(prev => Math.min(prev + 0.1, 1));
@@ -209,7 +209,7 @@ const Contact = () => {
   ];
 
   // Animation variants
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -220,7 +220,7 @@ const Contact = () => {
     }
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
@@ -238,7 +238,7 @@ const Contact = () => {
     }
   };
 
-  const inputVariants = {
+  const inputVariants: Variants= {
     focus: {
       scale: 1.01,
       boxShadow: "0 0 0 2px rgba(0,0,0,0.1)",
@@ -246,7 +246,7 @@ const Contact = () => {
     }
   };
 
-  const successVariants = {
+  const successVariants: Variants = {
     hidden: { scale: 0, opacity: 0 },
     visible: { 
       scale: 1, 
@@ -265,7 +265,7 @@ const Contact = () => {
   };
 
   return (
-    <section className="min-h-screen bg-gradient-to-b from-white to-gray-50 py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <section className="min-h-screen bg-linear-to-b from-white to-gray-50 py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Animated Background Particles */}
       <div className="absolute inset-0 overflow-hidden">
         {particles.map(particle => (
@@ -460,7 +460,7 @@ const Contact = () => {
                     exit="exit"
                     className="p-4 bg-green-50 border border-green-200 rounded-lg flex items-center gap-3"
                   >
-                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
+                    <CheckCircle className="w-5 h-5 text-green-600 shrink-0" />
                     <div>
                       <p className="font-medium text-green-800">Message sent successfully!</p>
                       <p className="text-sm text-green-600">I'll get back to you soon.</p>

@@ -46,7 +46,7 @@ const About = () => {
   }, []);
 
   // Touch interactions for mobile
-  const handleTouchStart = (e: React.TouchEvent, index: number) => {
+  const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStart(e.touches[0].clientY);
   };
 
@@ -123,7 +123,7 @@ const About = () => {
 
       {/* Reading Indicator - Hidden on mobile, shown on tablet+ */}
       <motion.div 
-        className="fixed top-4 right-4 flex items-center gap-2 z-50 hidden md:flex"
+        className="fixed top-4 right-4 flex items-center gap-2 z-50  md:flex"
         initial={{ opacity: 0 }}
         animate={{ opacity: isReading ? 1 : 0 }}
         transition={{ duration: 0.3 }}
@@ -243,7 +243,7 @@ const About = () => {
               onMouseEnter={() => !isMobile && setActiveParagraph(index)}
               onMouseLeave={() => !isMobile && setActiveParagraph(null)}
               onClick={() => !isMobile && setActiveParagraph(index === activeParagraph ? null : index)}
-              onTouchStart={(e) => handleTouchStart(e, index)}
+              onTouchStart={(e) => handleTouchStart(e)}
               onTouchEnd={(e) => handleTouchEnd(e, index)}
             >
               {/* Paragraph Number - Hidden on very small mobile */}
@@ -304,7 +304,7 @@ const About = () => {
                         rel="noopener noreferrer"
                         className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm hover:text-black transition-colors break-all"
                       >
-                        <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-black rounded-full flex-shrink-0" />
+                        <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-black rounded-full shrink-0" />
                         <span className="truncate">{link.label}</span>
                       </a>
                     ))}
@@ -324,7 +324,7 @@ const About = () => {
                     rel="noopener noreferrer"
                     className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm hover:text-black transition-colors break-all"
                   >
-                    <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-black rounded-full flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-black rounded-full shrink-0" />
                     <span className="truncate">{links[2].label}</span>
                   </a>
                 </motion.div>
@@ -377,7 +377,7 @@ const About = () => {
       {/* Mobile bottom navigation indicator */}
       {isMobile && (
         <motion.div 
-          className="fixed bottom-0 left-0 right-0 h-2 bg-gradient-to-r from-transparent via-black to-transparent opacity-20"
+          className="fixed bottom-0 left-0 right-0 h-2 bg-linear-to-r from-transparent via-black to-transparent opacity-20"
           animate={{ opacity: [0.1, 0.3, 0.1] }}
           transition={{ repeat: Infinity, duration: 2 }}
         />

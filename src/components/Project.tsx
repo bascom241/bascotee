@@ -296,7 +296,7 @@ const projects: Project[] = [
 const ProjectCard: React.FC<ProjectCardProps> = ({ 
   project, 
   index, 
-  hoveredIndex, 
+
   setHoveredIndex, 
   handleProjectClick 
 }) => {
@@ -562,7 +562,7 @@ const Project: React.FC = () => {
         </div>
 
         {/* Big Text Rotator - Only featured projects */}
-        <div className="relative h-[200px] sm:h-[250px] md:h-[300px] flex items-center justify-center mb-12">
+        <div className="relative h-50 sm:h-62.5 md:h-75 flex items-center justify-center mb-12">
           <AnimatePresence mode="wait">
             {featuredProjects.length > 0 && (
               <motion.div
@@ -704,7 +704,7 @@ const Project: React.FC = () => {
                   key={tab.id}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex-shrink-0 px-4 py-3 rounded-lg flex items-center gap-2 transition-all duration-300 ${
+                  className={`shrink-0 px-4 py-3 rounded-lg flex items-center gap-2 transition-all duration-300 ${
                     isActive 
                       ? tab.id === 'side' ? 'bg-blue-500 text-white' :
                         tab.id === 'professional' ? 'bg-purple-500 text-white' :
@@ -997,7 +997,7 @@ const Project: React.FC = () => {
                         transition={{ delay: 0.4 + i * 0.1 }}
                         className="text-gray-600 flex items-start gap-2"
                       >
-                        <ChevronRight className="w-4 h-4 text-black mt-1 flex-shrink-0" />
+                        <ChevronRight className="w-4 h-4 text-black mt-1 shrink-0" />
                         {challenge}
                       </motion.li>
                     ))}
@@ -1022,7 +1022,7 @@ const Project: React.FC = () => {
                         transition={{ delay: 0.5 + i * 0.1 }}
                         className="text-gray-600 flex items-start gap-2"
                       >
-                        <ChevronRight className="w-4 h-4 text-black mt-1 flex-shrink-0" />
+                        <ChevronRight className="w-4 h-4 text-black mt-1 shrink-0" />
                         {solution}
                       </motion.li>
                     ))}

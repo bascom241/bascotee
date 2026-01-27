@@ -10,6 +10,7 @@ const Slider = (): JSX.Element => {
   const [active, setActive] = useState<SliderItem | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  console.log(isHovered)
   const [slidesPerView, setSlidesPerView] = useState(3);
   const [isMobile, setIsMobile] = useState(false);
   const sliderRef = useRef<HTMLDivElement>(null);
@@ -80,17 +81,7 @@ const Slider = (): JSX.Element => {
     setTouchEnd(0);
   };
 
-  // Entry animations
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.3
-      }
-    }
-  };
+ 
 
   const itemVariants: Variants = {
     hidden: { y: 30, opacity: 0, scale: 0.95 },
@@ -107,7 +98,7 @@ const Slider = (): JSX.Element => {
   };
 
   return (
-    <section className="w-full py-8 sm:py-12 md:py-16 lg:py-20 overflow-hidden bg-gradient-to-b from-white to-gray-50">
+    <section className="w-full py-8 sm:py-12 md:py-16 lg:py-20 overflow-hidden bg-linear-to-b from-white to-gray-50">
       <div className="max-w-7xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -117,7 +108,7 @@ const Slider = (): JSX.Element => {
           viewport={{ once: true }}
           className="text-center mb-10 sm:mb-14 md:mb-16"
         >
-          <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+          <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 bg-linear-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
             Visual Stories
           </h2>
           <p className="text-gray-600 text-sm xs:text-base max-w-2xl mx-auto px-2">
@@ -161,7 +152,7 @@ const Slider = (): JSX.Element => {
           {/* Progress Bar */}
           <div className="absolute -top-6 sm:-top-8 left-0 right-0 h-1 bg-gray-200 rounded-full overflow-hidden z-20">
             <div 
-              className="h-full bg-gradient-to-r from-gray-800 to-gray-600 transition-all duration-500"
+              className="h-full bg-linear-to-r from-gray-800 to-gray-600 transition-all duration-500"
               style={{ 
                 width: `${((currentIndex + 1) / Math.max(1, sliderData.length - slidesPerView + 1)) * 100}%` 
               }}
@@ -209,7 +200,7 @@ const Slider = (): JSX.Element => {
                   `}
                 >
                   {/* Card */}
-                  <div className="relative rounded-lg sm:rounded-xl lg:rounded-2xl overflow-hidden bg-gradient-to-br from-white to-gray-50 shadow-md border border-gray-200 group-hover:shadow-xl transition-all duration-500 h-[280px] sm:h-[320px] md:h-[360px] lg:h-[420px]">
+                  <div className="relative rounded-lg sm:rounded-xl lg:rounded-2xl overflow-hidden bg-linear-to-br from-white to-gray-50 shadow-md border border-gray-200 group-hover:shadow-xl transition-all duration-500 h-70 sm:h-80 md:h-90 lg:h-105">
                     {/* Image Container */}
                     <div className="relative h-40 sm:h-48 md:h-56 lg:h-64 overflow-hidden">
                       <motion.img
@@ -222,7 +213,7 @@ const Slider = (): JSX.Element => {
                       />
                       
                       {/* Overlay Gradient */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                       
                       {/* Expand Icon */}
                       <motion.div
@@ -353,7 +344,7 @@ const Slider = (): JSX.Element => {
               </motion.button>
 
               {/* Image */}
-              <div className="relative h-[200px] sm:h-[250px] md:h-[300px] lg:h-[350px] bg-gray-50 flex items-center justify-center overflow-hidden">
+              <div className="relative h-50 sm:h-62.5 md:h-75 lg:h-87.5 bg-gray-50 flex items-center justify-center overflow-hidden">
                 <motion.img
                   src={active.image}
                   alt={active.title}
@@ -363,7 +354,7 @@ const Slider = (): JSX.Element => {
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.8 }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/10 via-transparent to-transparent" />
               </div>
 
               {/* Content */}
@@ -384,7 +375,7 @@ const Slider = (): JSX.Element => {
                   transition={{ delay: 0.3 }}
                   className="mb-4 sm:mb-6"
                 >
-                  <p className="text-lg sm:text-xl md:text-2xl font-black text-gray-800 leading-relaxed tracking-tight bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+                  <p className="text-lg sm:text-xl md:text-2xl font-black leading-relaxed tracking-tight bg-linear-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
                     {active.reason}
                   </p>
                 </motion.div>

@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion,  } from 'framer-motion';
 import { 
   MapPin, 
   Briefcase, 
   Calendar, 
   Globe, 
-  Code, 
+
   Users, 
   Award, 
   ChevronRight,
@@ -16,7 +16,7 @@ import {
   Navigation
 } from 'lucide-react';
 
-import type { Variant } from 'framer-motion';
+import type { Variants } from 'framer-motion';
 interface Experience {
   id: number;
   company: string;
@@ -202,7 +202,7 @@ const MapView: React.FC<{
 
   return (
     <motion.div
-      className="relative w-full h-[300px] md:h-[400px] rounded-xl overflow-hidden border border-gray-300 bg-gray-100"
+      className="relative w-full h-75 md:h-100 rounded-xl overflow-hidden border border-gray-300 bg-gray-100"
       animate={{
         rotateY: isHovered ? rotation : 0,
         scale: isHovered ? 1.05 : 1
@@ -342,7 +342,7 @@ const Experience = () => {
     fetchWeather();
   }, [selectedExperience]);
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -353,7 +353,7 @@ const Experience = () => {
     }
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
@@ -511,7 +511,7 @@ const Experience = () => {
 
             {/* Timeline */}
             <div className="space-y-4">
-              {experiences.map((exp, index) => (
+              {experiences.map((exp) => (
                 <motion.div
                   key={exp.id}
                   variants={itemVariants}

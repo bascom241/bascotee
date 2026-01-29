@@ -12,7 +12,7 @@ const container: Variants = {
   },
 };
 
-const item:Variants = {
+const item: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
@@ -59,9 +59,9 @@ const Hero = () => {
           variants={item}
           className="mt-4 text-gray-500 text-base md:text-lg"
         >
-          Creating innovative solutions and captivating designs.
+          Building innovative solutions. Designing experiences that matter.
           <br />
-          University student by day, visionary creator by night.
+          Software engineer focused on solving real problems with smart, scalable tech.
         </motion.p>
 
         {/* Actions */}
